@@ -1,8 +1,8 @@
 ## golang 需要注意的问题
 ### [英文网址](http://devs.cloudimmunity.com/gotchas-and-common-mistakes-in-go-golang/index.html#mline_lit_comma)
 
-应用于golang 1.5以下，经过测试1.8以下也要注意。
-
+应用于golang 1.5以下，经过测试1.8以下也要注意。用了那么长时间的go，感觉应该进行下总结，正好有个时间点，为自己做个笔记。
+人生起起伏伏如山峦一样，又如驼峰的编码。
 ### 汇总
 + 左边大括号不能另起一行
 
@@ -100,5 +100,37 @@
 		xByte[0] = 'T'
 		
 		fmt.Println(string(xByte))
+	}
+```
++ interface看起来像指针，但是它不是指针，和指针是有差别的
+
+```js
+	package main
+	
+	import "fmt"
+	func main() {
+		var data *byte
+		var in interface{}   //is interface{}
+		fmt.Println(data, data == nil) //is true
+		fmt.Println(in, in == nil)     //is true
+		
+		in = data
+		fmt.Println(in, in == nil) //nil, false, data is nil, but 'in' is not nil ,大部分人对这里很奇怪，但是事实就是这样，打印出nil是因为fmt.Println的实现检测到指针指向是nil，但是in本身并不是nil
+	}
+```
+
++ 更新map的元素的时候需要注意的地方
+map元素如果是个结构体，不能更新结构体的私有的成员变量。
+slice的里面的元素是可以的，不一样哈
+```js
+	package main
+	
+	type data struct {
+		name string
+	}
+	
+	func main() {
+		mt := map[string]data{"x":{"very good"}}
+		mt["x"].name = "no"    //这里是错误的，此变量无法访问
 	}
 ```
