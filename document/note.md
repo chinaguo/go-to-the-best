@@ -135,3 +135,47 @@ slice的里面的元素是可以的，不一样哈
 	  mt["x"].name = "no"    //这里是错误的，此变量无法访问
 	}
 ```
+
++ 在进行http请求的时候，http.Get()或者Post()返回值，要判断error，如果不为nil不能使用defer resp.Body.Close()
+
+```js
+  package main
+
+  import(
+    "fmt"
+    "net/http"
+    "io/ioutil"
+  )
+  
+  func main() {
+    //简单的一个Get
+    resp, err := http.Get("https://baidu.com")
+  	 if err != nil {
+  	    fmt.Println(err)
+  	    return
+  	 }
+  	 
+  	 defer resp.Body.Close()    //先判断error，此处才可以
+  	 body, err := ioutil.ReadAll(resp.Body)   //读取body内容
+  	 if err != nil {
+  	 	fmt.Println(err)
+  	 	return
+  	 }
+  	 
+  	 fmt.Println(string(body))
+  }
+```
++ json.Unmarshal的时候，如果result为map[string]interface{},返回的数字型应该用float64进行强转
+
+```json
+  data := []byte(`{"hello": 10}`)
+  
+  var result map[string]interface{}
+  if err := json.Unmarshal(data, &result); err != nil {
+    fmt.Println("error:", err)
+    return
+  }
+  
+  var hello = result["hello"].(float64)
+  fmt.Println("status value:", status)
+```
