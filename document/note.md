@@ -155,7 +155,7 @@ slice的里面的元素是可以的，不一样哈
   	    return
   	 }
   	 
-  	 defer resp.Body.Close()    //先判断error，此处才可以
+  	 defer resp.Body.Close()    //先判断error，此处才可以关闭
   	 body, err := ioutil.ReadAll(resp.Body)   //读取body内容
   	 if err != nil {
   	 	fmt.Println(err)
@@ -189,5 +189,5 @@ slice的里面的元素是可以的，不一样哈
 
 ```js
   有几种规则其实应该注意一下：
-  1.其实没有
+  1.其实没有ti
 ```
