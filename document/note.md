@@ -1,8 +1,8 @@
 ## golang 需要注意的问题
 ### [英文网址](http://devs.cloudimmunity.com/gotchas-and-common-mistakes-in-go-golang/index.html#mline_lit_comma)
 
-应用于golang 1.5以下，经过测试1.8以下也要注意。用了那么长时间的go，感觉应该进行下总结，正好有个时间点，为自己做个笔记。
-人生起起伏伏如山峦一样，又如驼峰的编码。
+应用于golang 1.5以下，经过测试1.8以下也要注意。从1.6开始用了那么长时间的go，感觉应该进行下总结，正好有个时间点，为自己做个笔记。
+人生起起伏伏如山峦一样，又如驼峰的编码，有时高有时低...
 ### 汇总
 + 左边大括号不能另起一行
 
@@ -192,4 +192,42 @@ slice的里面的元素是可以的，不一样哈
   1.其实没有特别普遍的方法来关闭channel，一般是由发送者来关闭channel。
   2.不能关闭已经关闭的channel，会出现panic。
   3.发送数据给已经关闭的channel，会出现panic。
+```
++ 关于sync.WaitGroup使用
+
+```js
+  package main
+	
+  import(
+	 "time"
+	 "fmt"
+	 "sync" 
+  )
+  
+  func main() {
+    wg := sync.WaitGroup{}
+    wg.Add(1)
+    
+    go func() {
+       defer wg.Done()
+       fmt.Println("ok")
+    }()
+    
+    wg.Wait()
+  }
+```
++ golang中关于第三方包的使用，推荐go vendor。1.5之后就可以使用，1.6正式引入。
+
+```js
+  为什么要使用vendor呢？
+  1.在远程服务器进行编译的时候不用再go get 外部依赖包了，如果在国外的服务器上下载是非常慢的，有时候可能会出现问题。
+  2.在编译服务器上go get 的包有可能是最新的包，和你机器上的不一致就有可能有问题。
+  3.有了vendor编译的时候会优先vendor目录下寻找依赖的包。
+  4.看看docker吧，你会感觉选择没有错。
+```
++ golang第三方包版本控制，golang没有集中的包管理的地方，和node的设计差别比较大。
+
+```js
+  使用gopkg.in的应用，这个是个开源的软件。
+  比如：gopkg.in/mgo.v2就是使用mgo中v2的版本
 ```
