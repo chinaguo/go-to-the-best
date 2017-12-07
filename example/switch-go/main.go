@@ -43,10 +43,10 @@ loop:
 	dd := 1
 	dd++
 	//这个后面执行
-	defer fmt.Println("result =>", func() int { return dd * 2 }()) //print 2，这个在编译的时候已经确定了，使用的是最后的值
+	defer fmt.Println("result =>", func() int { return dd * 2 }()) //print 4，这个在编译的时候已经确定了，使用的是2
 	//后面的先执行
 	defer func() {
-		fmt.Println("dd: ", dd) //print 2,dd是有运行的时候进行编译的
+		fmt.Println("dd: ", dd) //print 3,dd是有运行的时候确定的值
 	}()
 	dd++
 	fmt.Println("exit!")
