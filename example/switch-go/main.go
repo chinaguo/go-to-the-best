@@ -13,6 +13,41 @@ func (p *node) print() {
 	fmt.Println(p.name)
 }
 
+//5 4 3 2 1
+func printNumber() {
+	for i := 0; i < 5; i++ {
+		defer fmt.Printf("%d", i)
+	}
+}
+
+//5 5 5 5 5, 延迟函数的参数会被求值，但是延迟函数调用表达式不会被求值
+func printNumbers() {
+	for i := 0; i < 5; i++ {
+		defer func() {
+			fmt.Printf("%d", i)
+		}()
+	}
+}
+
+//参数会求值的情况
+func begin(name string) string {
+
+	fmt.Printf("Enter function %s.\n", name)
+	return name
+}
+
+//end 结束求值
+func end(name string) string {
+	fmt.Printf("End function %s.\n", name)
+	return name
+}
+
+//record 记录求值信息
+func record() {
+	defer end(begin("record"))
+	fmt.Println("recording .....")
+}
+
 func main() {
 loop:
 	for {
