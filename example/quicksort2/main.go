@@ -20,6 +20,7 @@ func quickSort(l []int, left, right int) {
 	}
 }
 
+//分治的策略，可以进行随机取x
 func partition(l []int, left, right int) int {
 	x := l[right]
 	i := left - 1
