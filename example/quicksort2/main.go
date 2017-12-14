@@ -2,12 +2,39 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
 	"time"
 )
 
-func quickSort() {
-	i := 0
-	i++
+func quickSort(l []int, left, right int) {
+	if left < right {
+		q := partition(l, left, right)
+		if q > left {
+			quickSort(l, left, q-1)
+		}
+
+		if q < right {
+			quickSort(l, q+1, right)
+
+		}
+	}
+}
+
+func partition(l []int, left, right int) int {
+	x := l[right]
+	i := left - 1
+
+	for j := left; j < right; j++ {
+		if l[j] <= x {
+			i = i + 1
+			l[i], l[j] = l[j], l[i]
+		}
+		fmt.Printf("i:%d, j:%d, x:%d, l:%v. \n", i, j, x, l)
+	}
+
+	l[i+1], l[right] = l[right], l[i+1]
+	fmt.Println("l", l)
+	return i + 1
 }
 
 func dataSlice() {
@@ -50,5 +77,14 @@ func main() {
 	fmt.Println(string(xByte))
 
 	//do other work
-	time.Sleep(3 * time.Second)
+	time.Sleep(1 * time.Second)
+
+	var z []int
+	for i := 0; i < 10; i++ {
+
+		z = append(z, rand.Intn(1000))
+	}
+	fmt.Println(z)
+	quickSort(z, 0, len(z)-1)
+	fmt.Println(z)
 }

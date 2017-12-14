@@ -32,6 +32,9 @@ func main() {
 	change(arr)
 	fmt.Println(arr)
 
+	arr2 := arr[0:2]
+	fmt.Println(arr2)
+
 	m := make(map[string]string)
 	m["x"] = "no"
 	changeMap(m)
