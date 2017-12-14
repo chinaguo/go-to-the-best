@@ -18,14 +18,14 @@ func mergeSort(r []int) []int {
 	return merge(left, right)
 }
 
-//这个算法主要使用空间换取时间，有点取巧
+//这个算法主要使用空间换取时间，有点取巧,此方法来自于网络，我更喜欢c或者c++方式的实现
 func merge(left, right []int) (result []int) {
 	l, r := 0, 0
 	for l < len(left) && r < len(right) {
 
 		if left[l] < right[r] {
 			result = append(result, left[l])
-			l++
+			L++
 		} else {
 			result = append(result, right[r])
 			r++
