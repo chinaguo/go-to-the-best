@@ -12,6 +12,9 @@ sudo ./b2 threading=multi address-model=64 variant=release stage install
 
 ```js
 libevent地址: http://libevent.org/
+brew install openssl
+ln -s /usr/local/Cellar/openssl/1.0.2l/include/openssl/ libevent_home/include/openssl
+
 ./configure --prefix=/usr/local
 make
 sudo make install
@@ -20,5 +23,8 @@ sudo make install
 #### 3.构建thrift
 
 ```js
+brew install autoconf
+brew install libtool
+brew install automake
 ./configure --prefix=/usr/local/ --with-boost=/usr/local --with-libevent=/usr/local
 ```
