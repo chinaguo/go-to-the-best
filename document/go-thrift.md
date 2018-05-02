@@ -1,3 +1,4 @@
+mac下安装thrift
 http://thrift.apache.org/docs/install/os_x
 
 #### 1.安装boost库
